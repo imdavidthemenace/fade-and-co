@@ -144,14 +144,14 @@ export async function POST(request: NextRequest) {
         customerName,
         customerEmail,
         customerPhone,
-
+        bookingDate: startTime,
         startTime,
         endTime,
 
         notes: notes || null,
 
         status: "CONFIRMED",
-        bookingDate: startTime,
+       
       },
 
       include: {
