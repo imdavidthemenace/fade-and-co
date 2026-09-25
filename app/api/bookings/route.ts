@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { z } from "zod";
 import { addMinutes, parseISO, isValid } from "date-fns";
+import { BookingStatus } from "@prisma/client";
 
 const bookingSchema = z.object({
   serviceId: z.string().min(1),
@@ -150,7 +151,7 @@ export async function POST(request: NextRequest) {
 
         notes: notes || null,
 
-        status: "CONFIRMED",
+       status: BookingStatus.CONFIRMED,
        
       },
 
