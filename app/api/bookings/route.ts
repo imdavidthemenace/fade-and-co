@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { z } from "zod";
 import { addMinutes, parseISO, isValid } from "date-fns";
+import { BookingStatus } from "@prisma/client";
 
 const bookingSchema = z.object({
   serviceId: z.string().min(1),
@@ -76,7 +77,7 @@ export async function POST(request: NextRequest) {
     }
 
     // ----------------------------------------
-    // 3. Build appointment start time
+    // 3. Build appointment start/end time
     // ----------------------------------------
 
     const startTime = parseISO(`${date}T${time}:00`);
@@ -109,13 +110,14 @@ export async function POST(request: NextRequest) {
       where: {
         barberId,
         status: {
-          in: ["PENDING", "CONFIRMED"],
+          in: [
+            BookingStatus.PENDING,
+            BookingStatus.CONFIRMED,
+          ],
         },
-
         startTime: {
           lt: endTime,
         },
-
         endTime: {
           gt: startTime,
         },
@@ -145,13 +147,13 @@ export async function POST(request: NextRequest) {
         customerEmail,
         customerPhone,
 
+        bookingDate: startTime,
         startTime,
         endTime,
 
         notes: notes || null,
 
-        status: "CONFIRMED",
-        bookingDate: startTime,
+        status: BookingStatus.CONFIRMED,
       },
 
       include: {

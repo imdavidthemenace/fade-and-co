@@ -6,6 +6,7 @@ import {
   isBefore,
   parseISO,
 } from "date-fns";
+import { BookingStatus } from "@prisma/client";
 
 const SHOP_OPEN = 9;
 const SHOP_CLOSE = 19;
@@ -62,7 +63,7 @@ export async function GET(request: NextRequest) {
     }
 
     // ----------------------------------------
-    // Get existing bookings
+    // Get existing bookings for the selected day
     // ----------------------------------------
 
     const dayStart = parseISO(`${date}T00:00:00`);
@@ -73,7 +74,10 @@ export async function GET(request: NextRequest) {
         barberId,
 
         status: {
-          in: ["PENDING", "CONFIRMED"],
+          in: [
+            BookingStatus.PENDING,
+            BookingStatus.CONFIRMED,
+          ],
         },
 
         startTime: {
@@ -127,7 +131,9 @@ export async function GET(request: NextRequest) {
         });
 
         if (!hasConflict) {
-          availableTimes.push(format(currentTime, "HH:mm"));
+          availableTimes.push(
+            format(currentTime, "HH:mm")
+          );
         }
       }
 
