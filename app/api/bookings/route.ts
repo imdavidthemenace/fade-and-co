@@ -151,6 +151,7 @@ export async function POST(request: NextRequest) {
         notes: notes || null,
 
         status: "CONFIRMED",
+        bookingDate: startTime,
       },
 
       include: {
