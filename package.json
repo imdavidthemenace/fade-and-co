@@ -4,9 +4,16 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+<<<<<<< HEAD
     "build": "prisma generate && next build",
     "start": "next start",
     "lint": "eslint"
+=======
+    "build": "prisma generate &&next build",
+    "start": "next start",
+    "lint": "eslint",
+  
+>>>>>>> e385a88b67491b420ccb6b00d0860f6e011b0058
   },
   "dependencies": {
     "@prisma/client": "^6.19.3",

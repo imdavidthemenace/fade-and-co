@@ -70,8 +70,8 @@ export async function GET(request: NextRequest) {
     const dayEnd = parseISO(`${date}T23:59:59`);
 
     const bookings = await prisma.booking.findMany({
-      where: {
-        barberId,
+  where: {
+    barberId,
 
         status: {
           in: [
@@ -80,21 +80,21 @@ export async function GET(request: NextRequest) {
           ],
         },
 
-        startTime: {
-          gte: dayStart,
-          lte: dayEnd,
-        },
-      },
+    startTime: {
+      gte: dayStart,
+      lte: dayEnd,
+    },
+  },
 
-      select: {
-        startTime: true,
-        endTime: true,
-      },
+  select: {
+    startTime: true,
+    endTime: true,
+  },
 
-      orderBy: {
-        startTime: "asc",
-      },
-    });
+  orderBy: {
+    startTime: "asc",
+  },
+});
 
     // ----------------------------------------
     // Generate possible times

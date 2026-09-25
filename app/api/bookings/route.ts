@@ -146,14 +146,22 @@ export async function POST(request: NextRequest) {
         customerName,
         customerEmail,
         customerPhone,
+<<<<<<< HEAD
 
+=======
+>>>>>>> e385a88b67491b420ccb6b00d0860f6e011b0058
         bookingDate: startTime,
         startTime,
         endTime,
 
         notes: notes || null,
 
+<<<<<<< HEAD
         status: BookingStatus.CONFIRMED,
+=======
+       status: BookingStatus.CONFIRMED,
+       
+>>>>>>> e385a88b67491b420ccb6b00d0860f6e011b0058
       },
 
       include: {
